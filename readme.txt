@@ -1,5 +1,5 @@
 === Plugin Name ===
-Contributors: VincentListrani
+Contributors: 3five, VincentListrani
 Donate link: 
 Tags: custom profile photo, user profile, profile photo, user profile photo
 Requires at least: 3.6.1

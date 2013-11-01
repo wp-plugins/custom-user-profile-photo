@@ -2,9 +2,8 @@
 /*
 Plugin Name: Custom User Profile Photo
 Plugin URI: http://3five.com
-Description: A simple and effective custom WordPress user profile photo plugin. This plugin leverages the WordPress Media Uploader(WPMU) functionality.
-To use this plugin, simply go to the users section and select a user. The new fields are added to the bottom of the admin user profile page.
-Author: 3five, Inc., Vincent Listrani 
+Description: A simple and effective custom WordPress user profile photo plugin. This plugin leverages the WordPress Media Uploader functionality.
+Author: 3five
 Author URI: http://3five.com
 Text Domain: custom-user-profile-photo
 Domain Path: /languages/
@@ -18,8 +17,9 @@ Version: 0.2.3
  * usefull and does not ship with any WARRANTY.
  *
  * USAGE:
- * <?php get_cupp_meta( $user_id, $size ); ?>
- * <img src="<?php get_cupp_meta( $user_id, $size ); ?>">
+ * <?php $imgURL = get_cupp_meta( $user_id, $size ); ?>
+ * or
+ * <img src="<?php echo get_cupp_meta( $user_id, $size ); ?>">
  * 
  * Beginner WordPress template editing skill required. Place the above tag in your template and provide the two parameters.
  * @param $user_id    Default: $post->post_author. Will accept any valid user ID passed into this parameter.
