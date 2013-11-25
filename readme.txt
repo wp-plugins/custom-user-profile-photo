@@ -24,13 +24,13 @@ This plugin will add a custom set of fields to the user profile page which will 
 
 You can add/change/edit uploaded photos directly from the user profile page. The external option allows you to provide a URL to the external image or remove it.
 
-*Future Updates to this plugin include full WordPress avatar integration(posts and comments), allowing other roles to access this feature, and ajax processing of images that use the WordPress Media Uploader.
+*Future Updates to this plugin include full WordPress avatar integration (posts and comments), allowing other roles to access this feature, and ajax processing of images that use the WordPress Media Uploader.
 
 To use this plugin, simply go to the users section and select a user. The new fields are added to the bottom of the user profile page. Choose which type of photo you want to use. Upload or add the url, depending on your option. Then press the Update Profile button.
 
 To retrieve the photo on the front-end use the following example on your template page(s):
 `<?php
-	// Retrieve The Posts's Author ID
+	// Retrieve The Post's Author ID
 	$user_id = get_the_author_meta('ID');
 	// Set the image size. Accepts all registered images sizes and array(int, int)
 	$size = 'thumbnail';
@@ -52,10 +52,10 @@ To retrieve the photo on the front-end use the following example on your templat
 
 = How do I retrieve the image after I've updated the user profile. =
 
-You can call it in your tempalte page(s) like so: `<?php echo get_cupp_meta($user_ID, $size); ?>`
+You can call it in your template page(s) like so: `<?php echo get_cupp_meta($user_ID, $size); ?>`
 where the $user_ID is the users ID number and the size is a registered image size like 'thumbnail' or an array like `array(50,50)`
 
-= Who can upload and manage these iamges. =
+= Who can upload and manage these images. =
 
 Currently, only a user with admin privileges can manage this option.
 
@@ -65,7 +65,7 @@ Currently, only a user with admin privileges can manage this option.
 
 2. After uploading and saving your selected image.
 
-3. On hover, Edit or Remove an uploaded iamge.
+3. On hover, Edit or Remove an uploaded image.
 
 4. On hover, Remove a URL to an external image.
 
