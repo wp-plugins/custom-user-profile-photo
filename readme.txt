@@ -3,7 +3,7 @@ Contributors: 3five, VincentListrani
 Donate link: 
 Tags: custom profile photo, user profile, profile photo, user profile photo
 Requires at least: 3.6.1
-Tested up to: 3.7.1
+Tested up to: 3.8
 Stable tag: 0.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -72,6 +72,10 @@ Currently, only a user with admin privileges can manage this option.
 5. An example of getting this new image to display on the front-end.
 
 == Changelog ==
+
+= 0.2.4 =
+* Tested with WordPress v3.8
+* Updated description text. Better explanation of how to quickly use this plugin.
 
 = 0.2.3 =
 * Beta version release.
