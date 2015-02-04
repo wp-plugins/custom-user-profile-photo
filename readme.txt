@@ -3,8 +3,8 @@ Contributors: 3five, VincentListrani
 Donate link: 
 Tags: custom profile photo, user profile, profile photo, user profile photo
 Requires at least: 3.6.1
-Tested up to: 3.9
-Stable tag: 0.2.4
+Tested up to: 4.1
+Stable tag: 0.2.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
