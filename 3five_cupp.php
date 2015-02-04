@@ -145,9 +145,9 @@ function cupp_save_img_meta( $user_id ) {
         return false;
 
     // If the current user can edit Users, allow this.
-    update_usermeta( $user_id, 'cupp_meta', $_POST['cupp_meta'] );
-    update_usermeta( $user_id, 'cupp_upload_meta', $_POST['cupp_upload_meta'] );
-    update_usermeta( $user_id, 'cupp_upload_edit_meta', $_POST['cupp_upload_edit_meta'] );
+    update_user_meta( $user_id, 'cupp_meta', $_POST['cupp_meta'] );
+    update_user_meta( $user_id, 'cupp_upload_meta', $_POST['cupp_upload_meta'] );
+    update_user_meta( $user_id, 'cupp_upload_edit_meta', $_POST['cupp_upload_edit_meta'] );
 }
 
 /**
