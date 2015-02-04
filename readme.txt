@@ -77,6 +77,7 @@ Currently, only a user with admin privileges can manage this option.
 * Tested with WordPress v4.1
 * Fixed a bug where the external URL option would not return the URL with get_cupp_meta().
 * Fixed a bug where the saved image did not correspond to the selected radio button.
+* Replaced depricated update_usermeta with update_user_meta.
 * Improved image selection functionality.
 * Images now show immediately after selecting an uploaded item or entering an external URL.
 * Added Dutch translation - Thanks Olaf Lederer
