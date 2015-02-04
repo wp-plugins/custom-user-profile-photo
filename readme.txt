@@ -73,6 +73,14 @@ Currently, only a user with admin privileges can manage this option.
 
 == Changelog ==
 
+= 0.2.5 =
+* Tested with WordPress v4.1
+* Fixed a bug where the external URL option would not return the URL with get_cupp_meta().
+* Fixed a bug where the saved image did not correspond to the selected radio button.
+* Improved image selection functionality.
+* Images now show immediately after selecting an uploaded item or entering an external URL.
+* Added Dutch translation - Thanks Olaf Lederer
+
 = 0.2.4 =
 * Tested with WordPress v3.8
 * Updated description text. Better explanation of how to quickly use this plugin.
@@ -81,6 +89,9 @@ Currently, only a user with admin privileges can manage this option.
 * Beta version release.
 
 == Upgrade Notice ==
+
+= 0.2.5 =
+Bug Fixes and minor improvements.
 
 = 0.2.3 =
 Beta Release

@@ -35,6 +35,13 @@
 	border: 1px solid #e5e5e5;
 }
 
+.cupp-current-img.placeholder{
+	width: 1px;
+	height: 1px;
+	border: 0;
+	background: transparent;
+}
+
 .edit_options{
 	display: block;
 	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";

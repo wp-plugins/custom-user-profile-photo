@@ -98,6 +98,8 @@ function cupp_profile_img_fields( $user ) {
                         <div class="edit_options single">
                             <a class="remove_img"><span>Remove</span></a>
                         </div>
+                    <?php else : ?>
+                        <img src="<?php echo plugins_url( 'custom-user-profile-photo/img/placeholder.gif' ); ?>" class="cupp-current-img placeholder">
                     <?php endif; ?>
                 </div>
 
@@ -111,6 +113,7 @@ function cupp_profile_img_fields( $user ) {
 
                 <!-- Hold the value here if this is a WPMU image -->
                 <div id="cupp_upload">
+                    <input type="hidden" name="cupp_placeholder_meta" id="cupp_placeholder_meta" value="<?php echo plugins_url( 'custom-user-profile-photo/img/placeholder.gif' ); ?>" class="hidden" />
                     <input type="hidden" name="cupp_upload_meta" id="cupp_upload_meta" value="<?php echo esc_url_raw( $cupp_upload_url ); ?>" class="hidden" />
                     <input type="hidden" name="cupp_upload_edit_meta" id="cupp_upload_edit_meta" value="<?php echo esc_url_raw( $cupp_upload_edit_url ); ?>" class="hidden" />
                     <input type='button' class="cupp_wpmu_button button-primary" value="<?php _e( $btn_text, 'custom-user-profile-photo' ); ?>" id="uploadimage"/><br />
@@ -208,20 +211,26 @@ function get_cupp_meta( $user_id, $size ) {
     // get the external image
     $attachment_ext_url = esc_url( get_the_author_meta( 'cupp_meta', $user_id ) );
     $attachment_url = '';
+    $image_url = '';
     if($attachment_upload_url){
         $attachment_url = $attachment_upload_url;
+        
+        // grabs the id from the URL using Frankie Jarretts function
+        $attachment_id = get_attachment_image_by_url( $attachment_url );
+     
+        // retrieve the thumbnail size of our image
+        $image_thumb = wp_get_attachment_image_src( $attachment_id, $size );
+        $image_url = $image_thumb[0];
+
     } elseif($attachment_ext_url) {
-        $attachment_url = $attachment_ext_url;
+        $image_url = $attachment_ext_url;
     }
- 
-    // grabs the id from the URL using Frankie Jarretts function
-    $attachment_id = get_attachment_image_by_url( $attachment_url );
- 
-    // retrieve the thumbnail size of our image
-    $image_thumb = wp_get_attachment_image_src( $attachment_id, $size );
- 
+
+    if ( empty($image_url) )
+        return;
+
     // return the image thumbnail
-    return $image_thumb[0];
+    return $image_url;
 }
 
 ?>

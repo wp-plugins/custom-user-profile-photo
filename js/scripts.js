@@ -35,7 +35,7 @@ var file_frame;
       jQuery('#cupp_meta').val('');
       jQuery('#cupp_upload_meta').val(attachment.url);
       jQuery('#cupp_upload_edit_meta').val('/wp-admin/post.php?post='+attachment.id+'&action=edit&image-editor');
-      jQuery('.cupp-current-img').attr('src', attachment.url);
+      jQuery('.cupp-current-img').attr('src', attachment.url).removeClass('placeholder');
     });
  
     // Finally, open the modal
@@ -55,6 +55,22 @@ var file_frame;
     }
 
   });
+  
+  if ( '' !== jQuery('#cupp_meta').val() ) {
+    jQuery('#external_option').attr('checked', 'checked');
+    jQuery('#cupp_external').show();
+    jQuery('#cupp_upload').hide();
+  } else {
+    jQuery('#upload_option').attr('checked', 'checked');
+  }
+
+  // Update hidden field meta when external option url is entered
+  jQuery('#cupp_meta').blur(function(event) {
+    if( '' !== $(this).val() ) {
+      jQuery('#cupp_upload_meta').val('');
+      jQuery('.cupp-current-img').attr('src', $(this).val()).removeClass('placeholder');
+    }
+  });
 
 // Remove Image Function
   jQuery('.edit_options').hover(function(){
@@ -64,7 +80,12 @@ var file_frame;
   });
 
   jQuery('.remove_img').on('click', function( event ){
-    jQuery(this).parent().add('.cupp-current-img').fadeOut('fast', function(){jQuery(this).remove()});
+    var placeholder = jQuery('#cupp_placeholder_meta').val();
+
+    jQuery(this).parent().fadeOut('fast', function(){
+      jQuery(this).remove();
+      jQuery('.cupp-current-img').addClass('placeholder').attr('src', placeholder);
+    });
     jQuery('#cupp_upload_meta, #cupp_upload_edit_meta, #cupp_meta').val('');
   });
 
