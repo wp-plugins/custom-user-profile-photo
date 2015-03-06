@@ -4,7 +4,7 @@ Donate link:
 Tags: custom profile photo, user profile, profile photo, user profile photo
 Requires at least: 3.6.1
 Tested up to: 4.1
-Stable tag: 0.2.5
+Stable tag: 0.2.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -73,6 +73,9 @@ Currently, only a user with admin privileges can manage this option.
 
 == Changelog ==
 
+= 0.2.6 =
+* Fixed a bug where the save function required a different capability than the upload function (courtesy of douglas_johnson).
+
 = 0.2.5 =
 * Tested with WordPress v4.1
 * Fixed a bug where the external URL option would not return the URL with get_cupp_meta().
@@ -90,6 +93,9 @@ Currently, only a user with admin privileges can manage this option.
 * Beta version release.
 
 == Upgrade Notice ==
+
+= 0.2.6 =
+Bug Fixes and minor improvements.
 
 = 0.2.5 =
 Bug Fixes and minor improvements.

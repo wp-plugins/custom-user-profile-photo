@@ -7,7 +7,7 @@ Author: 3five
 Author URI: http://3five.com
 Text Domain: custom-user-profile-photo
 Domain Path: /languages/
-Version: 0.2.5
+Version: 0.2.6
 */
 
 /** 
@@ -141,7 +141,7 @@ add_action( 'edit_user_profile_update', 'cupp_save_img_meta' );
 
 function cupp_save_img_meta( $user_id ) {
 
-    if ( !current_user_can( 'edit_user', $user_id ) )
+    if ( !current_user_can( 'upload_files', $user_id ) )
         return false;
 
     // If the current user can edit Users, allow this.
