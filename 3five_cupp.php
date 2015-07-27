@@ -7,7 +7,7 @@ Author: 3five
 Author URI: http://3five.com
 Text Domain: custom-user-profile-photo
 Domain Path: /languages/
-Version: 0.3
+Version: 0.4
 */
 
 /** 
@@ -16,7 +16,11 @@ Version: 0.3
  * It is distributed as free software with the intent that it will be 
  * usefull and does not ship with any WARRANTY.
  *
- * USAGE:
+ * USAGE
+ * // Default:
+ * This will override the WordPress get_avatar hook
+ * 
+ * // Custom placement:
  * <?php $imgURL = get_cupp_meta( $user_id, $size ); ?>
  * or
  * <img src="<?php echo get_cupp_meta( $user_id, $size ); ?>">
@@ -26,11 +30,10 @@ Version: 0.3
  * @param $size       Default: 'thumbnail'. Accepts all default WordPress sizes and any custom sizes made by the add_image_size() function.
  * @return {url}      Use this inside the src attribute of an image tag or where you need to call the image url.
  * 
- * Inquiries, suggestions and feedback can be sent to vincent@3five.com
+ * Inquiries, suggestions and feedback can be sent to support@3five.com
  *
- * This is plugin is intented for Contributors, Editors and Admin role post/page authors. Thank you for downloading our plugin. 
- * We hope this WordPress plugin meets
- * your needs. 
+ * This is plugin is intented for Author, Editor and Admin role post/page authors. Thank you for downloading our plugin. 
+ * We hope this WordPress plugin meets your needs. 
  * 
  * Happy coding!
  * - 3five
@@ -39,7 +42,6 @@ Version: 0.3
  *  • Steven Slack - http://s2web.staging.wpengine.com/226/
  *  • Pippin Williamson - https://gist.github.com/pippinsplugins/29bebb740e09e395dc06
  *  • Mike Jolley - https://gist.github.com/mikejolley/3a3b366cb62661727263#file-gistfile1-php
- *  • Frankie Jarrett - http://frankiejarrett.com/get-an-attachment-id-by-url-in-wordpress/
  * 
  */
     
@@ -131,7 +133,7 @@ function cupp_profile_img_fields( $user ) {
     </table><!-- end form-table -->
 </div> <!-- end #cupp_container -->
 
-    <?php wp_enqueue_media(); // Enqueue the WordPress MEdia Uploader ?>
+    <?php wp_enqueue_media(); // Enqueue the WordPress Media Uploader ?>
 
 <?php }
 
@@ -158,13 +160,20 @@ function cupp_save_img_meta( $user_id ) {
  * @return {url}      Use this inside the src attribute of an image tag or where you need to call the image url.
  */
 function get_cupp_meta( $user_id, $size ) {
+    global $post;
 
     //allow the user to specify the image size
     if (!$size){
         $size = 'thumbnail'; // Default image size if not specified.
     }
-    if(!$user_id){
-        $user_id = $post->post_author;
+    if(!$user_id || !is_numeric( $user_id ) ){
+        // Here we're assuming that the avatar being called is the author of the post. 
+        // The theory is that when a number is not supplied, this function is being used to 
+        // get the avatar of a post author using get_avatar() and an email address is supplied 
+        // for the $id_or_email parameter. We need an integer to get the custom image so we force that here.
+        // Also, many themes use get_avatar on the single post pages and pass it the author email address so this
+        // acts as a fall back.
+        $user_id = $post->post_author; 
     }
     
     // get the custom uploaded image
@@ -193,6 +202,47 @@ function get_cupp_meta( $user_id, $size ) {
 
     // return the image thumbnail
     return $image_url;
+}
+
+/**
+ * WordPress Avatar Filter
+ *
+ * Replaces the WordPress avatar with your custom photo using the get_avatar hook.
+ */
+add_filter( 'get_avatar', 'cupp_avatar' , 1 , 5 );
+
+function cupp_avatar( $avatar, $id_or_email, $size, $default, $alt ) {
+    $user = false;
+    $id = false;
+
+    if ( is_numeric( $id_or_email ) ) {
+
+        $id = (int) $id_or_email;
+        $user = get_user_by( 'id' , $id );
+
+    } elseif ( is_object( $id_or_email ) ) {
+
+        if ( ! empty( $id_or_email->user_id ) ) {
+            $id = (int) $id_or_email->user_id;
+            $user = get_user_by( 'id' , $id );
+        }
+
+    } else {
+        // $id = (int) $id_or_email;
+        $user = get_user_by( 'email', $id_or_email );   
+    }
+
+    if ( $user && is_object( $user ) ) {
+
+        $custom_avatar = get_cupp_meta($id, 'thumbnail');
+
+        if (isset($custom_avatar) && !empty($custom_avatar)) {
+            $avatar = "<img alt='{$alt}' src='{$custom_avatar}' class='avatar avatar-{$size} photo' height='{$size}' width='{$size}' />";
+        }
+
+    }
+
+    return $avatar;
 }
 
 ?>

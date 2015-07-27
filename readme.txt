@@ -3,8 +3,8 @@ Contributors: 3five, VincentListrani
 Donate link: 
 Tags: custom profile photo, user profile, profile photo, user profile photo
 Requires at least: 3.6.1
-Tested up to: 4.2.2
-Stable tag: 0.3
+Tested up to: 4.2.3
+Stable tag: 0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,15 +18,15 @@ Some users might not have or want to have a gravatar account or other universal 
 
 With the ability to upload a photo to a user profile via the WordPress Media Uploader or by specifying an external URL to an image, your users and/or authors can have a personalized photo specific to your website.*
 
-By utilizing the WordPress Media Uploader, you also have the ability to use and of the predefined images sizes that the media uploader creates and any custom images size specific to your theme.
-
 This plugin will add a custom set of fields to the user profile page which will allow for the use of a custom profile photo.
 
 You can add/change/edit uploaded photos directly from the user profile page. The external option allows you to provide a URL to the external image or remove it.
 
-**To use this plugin, you will need basic to intermediate WordPress theme development skills. It *does not* overwrite a theme's gravatar/avatar settings.**
+**As of v0.4**, the plugin now overrides the get_avatar() hook found in most WordPress themes. 
 
-Simply go to the users section and select a user. The new fields are added to the bottom of the user profile page. Choose which type of photo you want to use. Upload or add the url, depending on your option. Then press the Update Profile button.
+Simply go to the users section and select a user or select "Your Profile" depending on your permission level. The new fields are added to the bottom of the user profile page. Choose which type of photo you want to use. Upload an image or add an external url. Then press the Update Profile button.
+
+If you require a customized approach or your theme does not support the get_avatar() hook, use the example below.
 
 To retrieve the photo on the front-end use the following example on your template page(s):
 `<?php
@@ -41,9 +41,9 @@ To retrieve the photo on the front-end use the following example on your templat
 	// Print the image on the page
 	echo '<img src="'. $imgURL .'" alt="">';
 ?>`
-You will need to place the code above in each area of your theme where you wish to add or overwrite your theme's gravatar/avatar image. This can include but is not limited to single.php, page.php, and comments.php.
+You will need to place the code above in each area of your theme where you wish to add and retrieve your theme's custom avatar image. This can include but is not limited to single.php, page.php, and comments.php.
 
-*Future Updates to this plugin include full WordPress avatar integration (posts and comments), allowing other roles to access this feature, and ajax processing of images that use the WordPress Media Uploader.
+*Future Updates to this plugin include allowing other roles to access this feature, a settings page to allow a custom default image and other options.
 
 == Installation ==
 
@@ -53,18 +53,18 @@ You will need to place the code above in each area of your theme where you wish 
 
 == Frequently Asked Questions ==
 
-= How do I retrieve the image after I've updated the user profile? =
-
-You can call it in your template page(s) like so: `<?php echo get_cupp_meta($user_ID, $size); ?>`
-where the $user_ID is the users ID number and the size is a registered image size like 'thumbnail' or an array like `array(50,50)`
-
 = Who can upload and manage these images? =
 
-Currently, only a user with admin privileges can manage this option.
+Currently, only a user with the upload_files capability can use this option. 
+Editors and Admins can upload and edit files.
+Authors can only upload files.
+Subscribers and Contributors cannot do either so an Admin will need to do this for them.
 
-= I installed the plugin but it doesn't show the new image anywhere. What gives? = 
+= I installed the plugin but I want to customize the output and placement of the image. Is this possible? = 
 
-The plugin does not overwrite the default WordPress gravatar/avatar image. You need at least basic to intermediate WordPress theme editing skills. Please reference the code snippet above or on the Description tab. 
+Yes, you can still customize the output by using the get_cupp_meta() function. Please reference the code snippet below or on the Description tab. 
+`<?php echo get_cupp_meta($user_ID, $size); ?>`
+Where the $user_ID is the users ID number and the size is a registered image size like 'thumbnail' or an array like `array(50,50)`.
 
 == Screenshots ==
 
@@ -79,6 +79,11 @@ The plugin does not overwrite the default WordPress gravatar/avatar image. You n
 5. An example of getting this new image to display on the front-end.
 
 == Changelog ==
+
+= 0.4 =
+* Major Update - please be sure to backup your site and db. 
+* The plugin now overrides the WordPress avatar by filtering the get_avatar() hook.
+* The get_cupp_meta() function still exists and can be used to customize the output (this will eventually be deprecated).
 
 = 0.3 =
 * Changed the function which gets the attachment post ID by GUID to the WordPress core function attachment_url_to_postid() for better reliability. (Props to sqhendr).
