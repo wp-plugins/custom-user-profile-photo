@@ -233,8 +233,8 @@ function cupp_avatar( $avatar, $id_or_email, $size, $default, $alt ) {
     }
 
     if ( $user && is_object( $user ) ) {
-
-        $custom_avatar = get_cupp_meta($id, 'thumbnail');
+        
+        $custom_avatar = get_cupp_meta($id, ( $size ? $size : 'thumbnail' ) );
 
         if (isset($custom_avatar) && !empty($custom_avatar)) {
             $avatar = "<img alt='{$alt}' src='{$custom_avatar}' class='avatar avatar-{$size} photo' height='{$size}' width='{$size}' />";
